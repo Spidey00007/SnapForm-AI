@@ -12,7 +12,16 @@ function Header() {
   return (
     <div className="p-5 border-b shadow-sm">
       <div className="flex items-center justify-between">
-        <Image src="/logo.svg" width={50} height={50} alt="logo"></Image>
+        <Image
+          className="hover:cursor-pointer"
+          onClick={() => {
+            router.replace("/");
+          }}
+          src="/logo.svg"
+          width={50}
+          height={50}
+          alt="logo"
+        ></Image>
         {isSignedIn ? (
           <div className="flex items-center gap-5">
             <Button
