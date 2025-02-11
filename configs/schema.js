@@ -4,5 +4,5 @@ export const JsonForms = pgTable("jsonForms", {
   id: serial("id").primaryKey(),
   jsonform: text("jsonform").notNull(),
   createdBy: varchar("createdBy").notNull(),
-  CreatedAt: varchar("CreatedAt").notNull(),
+  createdAt: varchar("createdAt").notNull(),
 });
