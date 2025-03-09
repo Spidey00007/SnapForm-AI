@@ -49,8 +49,6 @@ function CreateForm() {
           createdAt: moment().format("DD/MM/YYYY"),
         })
         .returning({ id: JsonForms.id });
-
-      console.log("New Form Id", resp[0].id);
       if (resp[0].id) {
         route.push("/edit-form/" + resp[0].id);
       }
