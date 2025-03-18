@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { db } from "@/configs";
+import { JsonForms } from "@/configs/schema";
+import { useUser } from "@clerk/nextjs";
+import { desc, eq } from "drizzle-orm";
 import { ChartNoAxesCombined, LibraryBig, Mails, Shield } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function SideNav() {
   const menuList = [
@@ -33,11 +37,27 @@ function SideNav() {
     },
   ];
 
+  const { user } = useUser();
   const path = usePathname();
+  const [formList, setFormList] = useState();
+  const [PercFileCreated, setPercFileCreated] = useState(0);
 
   useEffect(() => {
-    console.log(path);
-  }, [path]);
+    user && GetFormList();
+  }, [user]);
+
+  const GetFormList = async () => {
+    const result = await db
+      .select()
+      .from(JsonForms)
+      .where(eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .orderBy(desc(JsonForms.id));
+
+    setFormList(result);
+
+    const perc = (result.length / 15) * 100;
+    setPercFileCreated(perc);
+  };
 
   return (
     <div className="h-screen shadow-md border">
@@ -46,24 +66,27 @@ function SideNav() {
           <Link
             href={menu.path}
             key={index}
-            className={`flex items-center gap-3 p-4 mb-3 hover:bg-primary hover:text-white rounded-lg cursor-pointer text-gray-500 ${
-              path == menu.path && "bg-primary text-white"
-            }`}
+            className={`flex items-center gap-3 p-4 mb-3 
+                hover:bg-primary hover:text-white rounded-lg
+                cursor-pointer text-gray-500
+                ${path == menu.path && "bg-primary text-white"}
+                `}
           >
             <menu.icon />
             {menu.name}
           </Link>
         ))}
       </div>
-
-      <div className="fixed bottom-7 p-6 w-64">
+      <div className="fixed bottom-7 p-6 w-64 ">
+        <Button className="w-full">+ Create Form</Button>
         <div className="my-7">
-          <Progress value={33} />
+          <Progress value={PercFileCreated} />
           <h2 className="text-sm mt-2 text-gray-600">
-            <strong>2</strong> out of <strong>5</strong> file created
+            <strong>{formList?.length} </strong>Out of <strong>15</strong> File
+            Created
           </h2>
-          <h2 className="text-sm mt-3 text-gray-400">
-            Upgrade your plan for unlimited form
+          <h2 className="text-sm mt-3 text-gray-600">
+            Upgrade your plan for unlimted AI form build
           </h2>
         </div>
       </div>
@@ -72,22 +95,3 @@ function SideNav() {
 }
 
 export default SideNav;
-<div>
-  <span id="ProgressLabel" className="sr-only">
-    Loading
-  </span>
-
-  <span
-    role="progressbar"
-    aria-labelledby="ProgressLabel"
-    aria-valuenow="50"
-    className="block rounded-full bg-gray-200"
-  >
-    <span
-      className="block h-4 rounded-full bg-indigo-600 text-center text-[10px]/4"
-      style="width: 50%"
-    >
-      <span className="font-bold text-white"> 50% </span>
-    </span>
-  </span>
-</div>;
