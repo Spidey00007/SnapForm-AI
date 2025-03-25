@@ -32,8 +32,10 @@ export default function Page() {
               features.
             </p>
             <p className="mb-4 text-3xl font-semibold">Asamit</p>
-            <p className="">Founder, MockInterview AI</p>
-            <p className="mb-7 text-sm opacity-70">Online AI Interview</p>
+            <p className="">Founder, SnapForm AI</p>
+            <p className="mb-7 text-sm opacity-70">
+              Customizable Form Creation Tool
+            </p>
           </div>
           <img
             className="-z-1 absolute top-0 h-full w-full object-cover opacity-90"

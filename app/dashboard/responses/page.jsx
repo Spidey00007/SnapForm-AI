@@ -21,9 +21,8 @@ function Responses() {
       .where(eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress));
 
     setFormList(result);
-
-    console.log(result);
   };
+
   return (
     formList && (
       <div className="p-10">
@@ -33,12 +32,27 @@ function Responses() {
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
           {formList &&
-            formList?.map((form, index) => (
-              <FormListItemResp
-                formRecord={form}
-                jsonForm={JSON.parse(form.jsonform)[0]}
-              />
-            ))}
+            formList?.map((form, index) => {
+              let parsedJson;
+              try {
+                parsedJson = JSON.parse(form.jsonform);
+              } catch (error) {
+                console.error("Error parsing JSON:", error);
+                parsedJson = {};
+              }
+
+              const finalJsonForm = Array.isArray(parsedJson)
+                ? parsedJson[0]
+                : parsedJson;
+
+              return (
+                <FormListItemResp
+                  key={index}
+                  formRecord={form}
+                  jsonForm={finalJsonForm}
+                />
+              );
+            })}
         </div>
       </div>
     )

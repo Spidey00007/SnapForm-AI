@@ -35,7 +35,6 @@ function CreateForm() {
       result = await AiChatSession.sendMessage(
         "Description: " + userInput + PROMPT
       );
-      console.log(result.response.text());
     } catch (error) {
       console.error("Error sending message:", error);
     }

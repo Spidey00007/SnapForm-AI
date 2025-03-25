@@ -47,13 +47,11 @@ function EditForm({ params }) {
         : parsedJson;
 
       setJsonForm(finalJsonForm);
-      console.log(finalJsonForm);
     } catch (error) {
       console.error("Error parsing JSON:", error);
     }
 
     setRecord(result[0]);
-    console.log(result[0]);
     setSelectedBackground(result[0].background);
     setSelectedTheme(result[0].theme);
     setSelectedStyle(JSON.parse(result[0].style));
@@ -87,7 +85,6 @@ function EditForm({ params }) {
       .returning({ id: JsonForms.id });
 
     toast("Updated!!!");
-    console.log(result);
   };
 
   const deleteField = (indexToRemove) => {
@@ -100,7 +97,6 @@ function EditForm({ params }) {
   };
 
   const updateControllerFields = async (value, columnName) => {
-    console.log(value, columnName);
     const result = await db
       .update(JsonForms)
       .set({
@@ -142,7 +138,7 @@ function EditForm({ params }) {
               url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + record?.id,
               title: jsonForm?.formTitle,
             }}
-            onClick={() => console.log("shared successfully!")}
+            onClick={() => {}}
           >
             <Button className="flex gap-2 bg-green-600 hover:bg-green-700">
               {" "}

@@ -32,11 +32,9 @@ function LiveAiForm({ params }) {
         : parsedJson;
 
       setJsonForm(finalJsonForm);
-      console.log(finalJsonForm);
     } catch (error) {
       console.error("Error parsing JSON:", error);
     }
-    console.log(result);
   };
   return (
     <div
@@ -48,8 +46,8 @@ function LiveAiForm({ params }) {
       {record && (
         <FormUi
           jsonForm={jsonForm}
-          onFieldUpdate={() => console.log}
-          deleteField={() => console.log}
+          onFieldUpdate={() => {}}
+          deleteField={() => {}}
           selectedStyle={JSON.parse(record?.style)}
           selectedTheme={record?.theme}
           editable={false}

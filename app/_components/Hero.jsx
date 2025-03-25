@@ -8,7 +8,6 @@ function Hero() {
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl">
               Create Forms in Seconds
-              {/* <span className="sm:block text-6xl"></span> */}
             </h1>
 
             <p className="mx-auto mt-4 max-w-xl sm:text-xl/relaxed text-gray-500">

@@ -15,8 +15,6 @@ function FormListItemResp({ jsonForm, formRecord }) {
       .select()
       .from(userResponses)
       .where(eq(userResponses.formRef, formRecord.id));
-
-    console.log(result);
     if (result) {
       result.forEach((item) => {
         const jsonItem = JSON.parse(item.jsonResponse);
@@ -24,7 +22,6 @@ function FormListItemResp({ jsonForm, formRecord }) {
       });
       setLoading(false);
     }
-    console.log(jsonData);
     exportToExcel(jsonData);
   };
 
